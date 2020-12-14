@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+	<task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+	    <report interval="0" url="http://112.4.10.132:8000/Homegw/vodCallback" />
+		<workers>
+		    <worker id="0" type="0" master="1">
+				<params>
+                    <param name="rtsp_transport"         value="tcp" /> 
+				    <param name="src"     value="rtsp%3a%2f%2f139.129.195.168%3a554%2flive%3fcontentid%3d030001010500001207%3a1%26sessionid%3d005aaab5ddf4b0816234%26timestamp%3d20170210103759%26timeout%3d30%26encrypt%3d48e993a1f5f7520d6b5474abbd62e810"  />
+					<param name="vcodec"            value="copy" />
+					<param name="acodec"            value="aac"      />
+			        <param name="f"                 value="flv"     />
+                    <param name="dst"         value="rtmp%3a%2f%2f183.207.215.125%3a8005%2flive%2fhexin"  /> <!-- copy move -->
+			    </params>
+			</worker>
+		</workers>
+    </task>
+</req>
+

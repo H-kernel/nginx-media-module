@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+	    <report interval="60" url="http://127.55.92.246:18080/abc/liveCallback" />
+		<workers>
+			<worker delay="0" master="1" repeat="0">
+				<input path="rtsp%3a%2f%2f115.28.143.169%3a554%2fdevice%3fcontentid%3d040001010500001225%3a1%26sessionid%3db4aa98d1cc67f2f26430%26timestamp%3d20150616093131%26timeout%3d30%26encrypt%3df14a8f6b954b519b60808f694e88bf9f">
+					<param name="rtsp_transport"  value="tcp"         />
+				</input>
+				<output path="/mnt/media/vod/hexin.m3u8">
+					<param name="vcodec"          value="copy"        />
+					<param name="hls_time"        value="5"          />
+					<param name="hls_list_size"   value="30"          />
+					<param name="hls_flags"       value="delete_segments+omit_endlist" />
+				</output>
+			</worker>
+		</workers>
+    </task>
+</req>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <task taskid="0123456789" command="start" /> <!-- command:start,stop,update -->
+</resp>

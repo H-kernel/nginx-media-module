@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="vod_jion_1525866110183_835" command="start">
+    <report interval="0" url="http://114.215.24.48:10000/mss/v1/allmedia/vodCallback" />
+    <workers>
+      <worker id="0" type="2" master="1">
+        <arguments>
+          <argument name="mss_addr"       value="http://192.169.182.10:10000/mss/v1/api/media/live"/>
+          <argument name="mss_cameraid"   value="33000000000105030103000000000914"/>
+          <argument name="mss_type"       value="record"/>
+          <argument name="mss_streamtype" value="1"/>
+          <argument name="mss_starttime"  value="2018-05-08 14:11:49"/>
+          <argument name="mss_endtime"    value="2018-05-08 14:19:49"/>
+          <argument name="mss_username"   value="heshijie"/>
+          <argument name="mss_password"   value="heshijie"/>
+          <argument name="dst"            value="rtmp://127.0.0.1:1935/live/ryb_live_386830678378622612"/>
+        </arguments>
+        <params include="${RECORD2TS}" />
+        <triggers>
+          <trigger after="stop" worker="1" delay="0"/>
+        </triggers>
+      </worker>
+      <worker id="1" type="2" master="0">
+        <params>
+          <param name="mss_addr" value="http://114.215.24.48:10000/mss/v1/api/record/url"/>
+          <param name="mss_cameraid" value="32000000000105070103000000000956"/>
+          <param name="mss_type" value="record"/>
+          <param name="mss_streamtype" value="1"/>
+          <param name="mss_starttime" value="2018-05-08 14:11:49"/>
+          <param name="mss_endtime" value="2018-05-08 14:19:49"/>
+          <param name="mss_username" value="$(username)"/>
+          <param name="mss_password" value="$(password)"/>
+          <param name="max_muxing_queue_size" value="128"/>
+          <param name="t" value="480"/>
+          <param name="vcodec" value="copy"/>
+          <param name="an" />
+          <param name="vbsf" value="h264_mp4toannexb"/>
+          <param name="dst" value="$(wkspace)/1.ts"/>
+        </params>
+        <triggers>
+          <trigger after="stop" worker="2" delay="0"/>
+        </triggers>
+      </worker>
+      <worker id="2" type="0" master="0">
+        <params>
+          <param name="src" value="concat:$(wkspace)/0.ts|$(wkspace)/1.ts"/>
+          <param name="vcodec" value="copy"/>
+          <param name="an" />
+          <param name="absf" value="aac_adtstoasc"/>
+          <param name="dst" value="$(wkspace)/vod_jion_1525866110183_835.mp4"/>
+        </params>
+      </worker>
+    </workers>
+  </task>
+</req>

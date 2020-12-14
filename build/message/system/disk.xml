@@ -1,0 +1,74 @@
+<!-- operate storage -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <disk command="stat" /><!--command:stat,list,delete,mkdir-->
+</req>
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <disk command="stat" ><!--command:list,stat,delete-->
+	    <vpath name="media1" size="1024000" free="100000"/> <!-- unit: MB -->
+        <vpath name="media2" size="1024000" free="100000"/> <!-- unit: MB -->
+    </disk>
+</resp>
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <disk command="list" ><!--command:list,stat,delete,mkdir-->
+        <vpath name="media1" dir="/"/>
+        <vpath name="media2" dir="/video"/>
+    </disk>
+</req>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <disk command="list" ><!--command:list,stat,delete,mkdir-->
+	    <vpath name="media1" dir="/">
+		    <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <dir  name="/image" />
+		</vpath>
+		<vpath name="media2" dir="/video">
+		    <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <file name="1111111.mp4" size="1024" /> <!-- unit: byte -->
+            <dir  name="/image" />
+		</vpath>
+    </disk>
+</resp>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <disk command="delete" ><!--command:list,stat,delete,mkdir-->
+        <vpath name="media1" dir="/" >
+            <file name="1111111.mp4" />
+        </vpath>
+        <vpath name="media2" dir="/video"/>
+    </disk>
+</req>
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <disk command="delete" ><!--command:list,stat,delete,mkdir-->
+        <vpath name="media1" dir="/" >
+            <file name="1111111.mp4" />
+            <dir  name="/video" />
+        </vpath>
+        <vpath name="media2" dir="/video"/>
+    </disk>
+</resp>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <disk command="mkdir" ><!--command:list,stat,delete,mkdir-->
+        <vpath name="media2" dir="/video"/>
+    </disk>
+</req>
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <disk command="mkdir" ><!--command:list,stat,delete,mkdir-->
+        <vpath name="media2" dir="/video"/>
+    </disk>
+</resp>

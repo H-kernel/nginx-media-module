@@ -1,0 +1,16 @@
+--- libavformat/rtsp.h	2016-10-22 07:52:30.000000000 +0800
++++ ../../patch/ffmpeg/libavformat/rtsp.h	2016-12-04 20:41:58.067069837 +0800
+@@ -636,6 +636,13 @@
+  */
+ int ff_rtsp_open_transport_ctx(AVFormatContext *s, RTSPStream *rtsp_st);
+ 
++/** add by H.Kernel 2016-05-09 for huawei rtsp server
++ * Send the rtcp with tcp ,over rtsp
++ */
++int ff_rtsp_check_and_send_back_rr(RTPDemuxContext *s, URLContext *fd,
++                               AVIOContext *avio,int interleaved, int count);
++
++
+ extern const AVOption ff_rtsp_options[];
+ 
+ #endif /* AVFORMAT_RTSP_H */

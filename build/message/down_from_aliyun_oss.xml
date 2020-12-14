@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+	<task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+	    <report interval="0" url="http://112.4.10.132:8000/Homegw/vodCallback" />
+		<workers>
+		    <worker id="0" type="1" master="1">
+				<params>
+				    <param name="trans_type"     value="download"         /><!-- upload download -->
+                    <param name="src_fs"         value="url" /> <!-- fs url oss -->
+					<param name="src"            value="http://appdownload.allcam.com.cn/EduSta.apk" />
+					<param name="src"            value="http://appdownload.allcam.com.cn/DeepLearning/myModel_iter_100.caffemodel" />
+			        <param name="dst_dir"        value="/mnt/"     />
+                    <param name="action"         value="copy"  /> <!-- copy move -->
+			    </params>
+			</worker>
+		</workers>
+    </task>
+</req>
+

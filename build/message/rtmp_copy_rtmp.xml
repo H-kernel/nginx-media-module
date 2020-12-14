@@ -1,0 +1,16 @@
+<req version="1.0">
+<task taskid="rtmp_copy" command="start">
+<report interval="60" url="http://121.40.77.122:18081/B_ADS/liveCallback"/>
+<workers>
+<worker id="1" master="1" type="0">
+<params>
+<param name="src"      value="rtmp://127.0.0.1:1935/live/xxxxxxx"/>
+<param name="vcodec"   value="copy"          />
+<param name="acodec"   value="aac"          />
+<param name="f"        value="flv"          />
+<param name="dst"      value="rtmp://127.0.0.1:1935/live/xxxxxxx"/>
+</params>
+</worker>
+</workers>
+</task>
+</req>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<params>
+  <param name="rtsp_transport" value="tcp"/>
+  <param name="src"            value="$(src)"/>
+  <param name="vcodec"         value="copy"/>
+  <param name="acodec"         value="aac"/>
+  <param name="f"              value="flv"/>
+  <param name="dst"            value="${dst}"/>
+</params>

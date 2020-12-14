@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+    </task>
+</req>

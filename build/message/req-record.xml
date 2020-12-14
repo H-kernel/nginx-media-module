@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <task taskid="yizhichao" command="start"> <!-- command:start,stop,update -->
+	    <report interval="60" url="http://127.55.92.246:18080/abc/liveCallback" />
+		<workers>
+			<worker id="0" type="0" master="1">
+                <params>
+                    <param name="src" value="rtmp://127.0.0.1:1935/live/yizhichao" />
+                    <param name="vcodec"          value="copy"        />
+                    <param name="f"               value="mp4"         />
+                    <param name="t"               value="3600"         />
+                    <param name="dst"  value="/home/update/yizhichao.mp4"         />
+                </params>
+			</worker>
+		</workers>
+    </task>
+</req>

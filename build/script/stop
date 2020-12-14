@@ -1,0 +1,10 @@
+#!/bin/sh
+
+curpath=`pwd`
+runpath=$(dirname $(pwd))
+if [ -f "$curpath/nginx" ];then
+    killall -9 nginx 
+fi
+if [ -f "$curpath/allmedia" ];then
+    killall -9 allmedia
+fi

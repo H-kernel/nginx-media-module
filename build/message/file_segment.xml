@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="ryb_live_386830678378622612" command="start">
+    <report interval="0" url="http://114.115.137.181:18081/mss/v1/allmedia/vodCallback" />
+    <workers>
+      <worker id="0" type="0" master="1">
+        <arguments>
+          <argument name="src"      value="$(source)/test.mp4"/>
+          <argument name="duration" value="600"/>
+        </arguments>
+        <params include="${params_segment}" />
+      </worker>
+    </workers>
+  </task>
+</req>

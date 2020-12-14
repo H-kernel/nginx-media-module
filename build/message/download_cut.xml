@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+	<task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+	    <report interval="0" url="http://112.4.10.132:8000/Homegw/vodCallback" />
+		<workers>
+		    <worker id="0" type="0" master="1">
+				<params>
+				    <param name="src"            value="http://xxxxx.m3u8"         /><!-- upload download -->
+                    <param name="codec"          value="copy" /> <!-- fs url oss -->
+					<param name="f"              value="mp4"         />
+			        <param name="dts"            value="/mnt/1111.mp4"     />
+			    </params>
+				<triggers>
+					<trigger after="stop"  worker="1" delay="0" />
+                    <trigger after="stop"  worker="2" delay="0" />
+				</triggers>
+			</worker>
+		    <worker id="1" type="0" master="1">
+				<params>
+				    <param name="src"            value="/mnt/1111.mp4"         /><!-- upload download -->
+                    <param name="codec"          value="copy" /> <!-- fs url oss -->
+					<param name="ss"             value="00:00:20"         />
+                    <param name="t"              value="30"         />
+			        <param name="dts"            value="/mnt/2222.mp4"     />
+			    </params>
+			</worker>
+            <worker id="2" type="0" master="1">
+				<params>
+				    <param name="src"     value="/mnt/1111.mp4"         /><!-- upload download -->
+                    <param name="codec"         value="copy" /> <!-- fs url oss -->
+					<param name="ss"             value="00:00:20"         />
+                    <param name="t"              value="30"         />        />
+			        <param name="dts"            value="/mnt/3333.mp4"     />
+			    </params>
+			</worker>            
+		</workers>
+    </task>
+</req>
+

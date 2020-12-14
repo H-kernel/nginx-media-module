@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="ryb_live_386830678378622612" command="control">
+    <workers>
+      <worker id="0" name="2" value="1" />  <!-- name :play,pause,seek,speed,scale: -->
+      <worker id="1" name="2" value="1" />
+    </workers>
+  </task>
+</req>

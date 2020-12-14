@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="ryb_live_386830678378622612" command="start">
+    <report interval="0" url="http://114.115.137.181:18081/mss/v1/allmedia/vodCallback" />
+    <workers>
+      <worker id="0" type="2" master="1">
+        <arguments>
+          <argument name="mss_addr"       value="http://192.169.182.10:10000/mss/v1/api/media/live"/>
+          <argument name="mss_cameraid"   value="33000000000105030103000000000914"/>
+          <argument name="mss_type"       value="live"/>
+          <argument name="mss_streamtype" value="1"/>
+          <argument name="mss_username"   value="heshijie"/>
+          <argument name="mss_password"   value="heshijie"/>
+          <argument name="dst"            value="$(vpath)/33000000000105030103000000000914.mp4"/>
+        </arguments>
+        <params include="${LIVE_RECORD}" />
+      </worker>
+    </workers>
+  </task>
+</req>

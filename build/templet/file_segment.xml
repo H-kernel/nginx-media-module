@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<params>
+  <param name="src"            value="$(src)"/>
+  <param name="codec"          value="copy"/>   
+  <param name="f"              value="segment"/> 
+  <param name="segment_time"   value="$(duration)"/>
+  <param name="dst"            value="${dst_dir}/%d.mp4"/>
+</params>

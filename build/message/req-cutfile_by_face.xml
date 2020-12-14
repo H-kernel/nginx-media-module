@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+	<task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+	    <report interval="0" url="http://112.4.10.132:8000/Homegw/vodCallback" />
+		<workers>
+		    <worker id="0" type="1" master="1">
+				<params>
+				    <param name="trans_type"     value="download"         /><!-- upload download -->
+                    <param name="src_fs"         value="url" /> <!-- fs url oss -->
+					<param name="src"            value="http://1111111/xxxx.mp4" />
+					<param name="src"            value="http://1111111/yyyyy.proto"      />
+			        <param name="dst_dir"        value="$(video_dir)/$(taskid)"     />
+                    <param name="action"         value="copy"  /> <!-- copy move -->
+			    </params>
+				<triggers>
+					<trigger after="stop"  worker="1" delay="0" />
+				</triggers>
+			</worker>
+		    <worker id="1" type="2" master="0">
+				<params>
+				    <param name="video_file"  value="xxxx.mp4"       />
+					<param name="af_file"     value="xxxx.proto"     />
+			        <param name="duration"    value="30"             />
+					<param name="out_dir"     value="${video_dir}"   />
+					<param name="out_record"  value="xxxx.json"      />
+					<param name="format"      value="xxxx%Y%m%d%h%M%s.mp4"  />
+			    </params>
+				<triggers>
+					<trigger after="stop"  worker="2" delay="0" />
+				</triggers>
+			</worker>
+			<worker id="2" type="1" master="0">
+				<params>
+				    <param name="trans_type"        value="upload"         />
+					<param name="src_dir"           value="${video_dir}/${taskid}"   />
+			        <param name="dst_fs"            value="oss" />
+                    <param name="oss_endpoint"      value="" />                    
+				    <param name="oss_bucket"        value="30"  />
+					<param name="oss_object"        value="/allcam/facevide/"  />
+					<param name="oss_appkey"        value="/allcam/facevide/"  />
+					<param name="oss_appSecrect"    value="/allcam/facevide/"  />
+					<param name="action"            value="move"  />
+			    </params>
+			</worker>		
+		</workers>
+    </task>
+</req>
+

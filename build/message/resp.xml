@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <task taskid="0123456789" command="start" /> <!-- command:start,stop,update,break -->
+</resp>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<params>
+  <param name="rtsp_transport" value="tcp"/>
+  <param name="src"            value="$(src)"/>
+  <param name="vcodec"         value="libx264"/>
+  <param name="profile:v"      value="main"/> 
+  <param name="preset:v"       value="fast"/> 
+  <param name="level"          value="3.1"/>
+  <param name="keyint_min"     value="60"/>
+  <param name="g"              value="60"/>
+  <param name="sc_threshold"   value="0"/>
+  <param name="s"              value="640x480"/>
+  <param name="r"              value="25"/>  
+  <param name="maxrate"        value="512k"/> 
+  <param name="minrate"        value="256k"/> 
+  <param name="bf"             value="0"/> 
+  <param name="b_strategy"     value="0"/>
+  <param name="acodec"         value="aac"/>
+  <param name="f"              value="flv"/>
+  <param name="dst"            value="${dst}"/>
+</params>

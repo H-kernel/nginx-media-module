@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="111111111" command="start">
+    <report interval="60" url="http://121.40.77.122:18081/B_ADS/clipCallback"/>
+    <workers>
+      <worker id="0" type="1" master="1">
+        <params>
+          <param name="trans_type" value="download"/>
+          <param name="src_fs" value="url"/>
+          <param name="src" value="http://allcam-huabo.oss-cn-hangzhou.aliyuncs.com/32010020160303153158530010w8ld1l/AnalysisResult_AllBox/2017_3_7/VID00026.MP4"/>
+          <param name="src" value="http://allcam-huabo.oss-cn-hangzhou.aliyuncs.com/32010020160303153158530010w8ld1l/AnalysisResult_AllBox/2017_3_7/VID00026.MP4.proto"/>
+          <param name="dst_dir" value="/mnt/$(taskid)/"/>
+        </params>
+        <triggers>
+          <trigger after="stop" worker="1" delay="0"/>
+        </triggers>
+      </worker>
+      <worker id="1" type="2" master="0">
+        <params>
+          <param name="video_file" value="$(wkspace)/$(taskid)/VID00026.MP4"/>
+          <param name="af_file" value="$(wkspace)/$(taskid)/VID00026.MP4.proto"/>
+          <param name="duration" value="30"/>
+          <param name="degree" value="0.0000"/>
+          <param name="out_dir" value="$(wkspace)/$(taskid)/output/"/>
+          <param name="out_record" value="result.json"/>
+        </params>
+        <triggers>
+          <trigger after="stop" worker="2" delay="0"/>
+        </triggers>
+      </worker>
+      <worker id="2" type="1" master="0">
+        <params>
+          <param name="trans_type" value="upload"/>
+          <param name="src_dir" value="$(wkspace)/$(taskid)/output/"/>
+          <param name="dst_fs" value="oss"/>
+          <param name="oss_endpoint" value="http://oss-cn-hangzhou-internal.aliyuncs.com/"/>
+          <param name="oss_bucket" value="allcam-public"/>
+          <param name="oss_object" value="allcam-public/intelRecognize"/>
+          <param name="oss_appkey" value="$(appkey)"/>
+          <param name="oss_appSecrect" value="$(appserect)"/>
+          <param name="oss_multupload"/>
+          <param name="delete" value="$(wkspace)/$(taskid)"/>
+        </params>
+      </worker>
+    </workers>
+  </task>
+</req>

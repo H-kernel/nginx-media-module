@@ -1,0 +1,22 @@
+<!-- system stat -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <system command="stat" /><!--command:stat-->
+</req>
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <system command="stat" ><!--command:stat-->
+	    <task taskcount="10" taskmax="1000" />
+        <rtmp rtmpcount="10" rtmpmax="1000" />
+        <hls  hlscount="10" hlsmax="1000" />
+        <rtsp rtspcount="10" rtspmax="1000" />
+        <cpu  usage="60" />
+        <mem  uint="MB" total="1000" used="1000" />
+        <signalip ip="192.168.1.1" uint="kbps" total="1000" recv="1000" send="1000" />
+        <serviceip ip="192.168.1.1" net="218.1.1.1" uint="kbps" total="1000" recv="1000" send="1000" />
+        <disk>
+            <vpath name="media1" path="/mnt/vod" uint="MB" diskSize="1000" usedSize="1000" />
+            <vpath name="media2" path="/mnt/record" uint="MB" diskSize="1000" usedSize="1000" />
+        </disk>
+    </system>
+</resp>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<params>
+  <param name="mss_addr"       value="$(mss_addr)"/>
+  <param name="mss_cameraid"   value="$(mss_cameraid)"/>
+  <param name="mss_type"       value="$(mss_type)"/>
+  <param name="mss_streamtype" value="$(mss_streamtype)"/>
+  <param name="mss_location"   value="$(mss_location)"/>
+  <param name="mss_contentId"  value="$(mss_contentId)"/>
+  <param name="mss_starttime"  value="$(mss_starttime)"/>
+  <param name="mss_endtime"    value="$(mss_endtime)"/>
+  <param name="mss_username"   value="$(mss_username)"/>
+  <param name="mss_password"   value="$(mss_password)"/>
+  <param name="mss_agenttype"  value="$(mss_agenttype)"/>
+  <param name="mss_nvrcode"    value="$(mss_nvrcode)"/>
+  <param name="mss_threads"    value="2"/>
+  <param name="vcodec"         value="libx264"/>
+  <param name="profile:v"      value="main"/> 
+  <param name="preset:v"       value="fast"/> 
+  <param name="level"          value="4.1"/>
+  <param name="keyint_min"     value="60"/>
+  <param name="g"              value="60"/>
+  <param name="sc_threshold"   value="0"/>
+  <param name="s"              value="1920x1080"/>
+  <param name="r"              value="15"/>  
+  <param name="b:v"            value="2000k" />  
+  <param name="maxrate"        value="2000k"/> 
+  <param name="minrate"        value="2000k"/>
+  <param name="nal-hrd"        value="cbr"/>   
+  <param name="bf"             value="0"/> 
+  <param name="b_strategy"     value="0"/>
+  <param name="acodec"         value="aac"/>
+  <param name="threads"        value="2"/>
+  <param name="f"              value="flv"/>
+  <param name="dst"            value="${dst}"/>
+</params>

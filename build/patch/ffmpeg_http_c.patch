@@ -1,0 +1,11 @@
+--- libavformat/http.c	2016-10-28 00:17:40.000000000 +0800
++++ ../../patch/ffmpeg/libavformat/http.c	2016-12-04 20:41:58.019069838 +0800
+@@ -125,7 +125,7 @@
+ #define OFFSET(x) offsetof(HTTPContext, x)
+ #define D AV_OPT_FLAG_DECODING_PARAM
+ #define E AV_OPT_FLAG_ENCODING_PARAM
+-#define DEFAULT_USER_AGENT "Lavf/" AV_STRINGIFY(LIBAVFORMAT_VERSION)
++#define DEFAULT_USER_AGENT "AllMedia v1.0"
+ 
+ static const AVOption options[] = {
+     { "seekable", "control seekability of connection", OFFSET(seekable), AV_OPT_TYPE_BOOL, { .i64 = -1 }, -1, 1, D },

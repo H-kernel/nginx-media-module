@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+	    <report interval="0" url="http://112.4.10.132:8000/Homegw/vodCallback" />
+		<workers>
+			<worker delay="0" master="1" repeat="0">
+				<input path="http://192.168.1.1:8080/xxxx.mp4">
+				    <param name="ss"  value="00:00:20"         />
+                    <param name="t"  value="30"         />
+				</input>
+				<output path="/home/update/030001010500000802.mp4">
+					<param name="vcodec"          value="copy"          />
+					<param name="acodec"          value="copy"          />
+				</output>
+			</worker>
+		</workers>
+    </task>
+</req>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <task taskid="0123456789" command="start" /> <!-- command:start,stop,update -->
+</resp>

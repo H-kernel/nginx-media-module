@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="111111111" command="start">
+    <report interval="60" url="http://121.40.77.122:18081/B_ADS/clipCallback"/>
+    <workers>
+      <worker id="0" type="1" master="1">
+        <params>
+          <param name="trans_type" value="download"/>
+          <param name="src_fs" value="url"/>
+          <param name="src" value="ftp://allcam:1qaz!QAZ@139.129.195.168:16888/xinhuashe/1/220.mp4" />
+          <param name="dst_dir" value="/mnt/$(taskid)/"/>
+        </params>
+      </worker>
+    </workers>
+  </task>
+</req>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<resp version="1.0" err_code="0" err_msg="success">
+    <task taskid="0123456789" command="start" /> <!-- command:start,stop,update -->
+</resp>
+

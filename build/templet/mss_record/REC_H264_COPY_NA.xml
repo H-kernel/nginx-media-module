@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<params>
+  <param name="mss_addr"       value="$(mss_addr)"/>
+  <param name="mss_cameraid"   value="$(mss_cameraid)"/>
+  <param name="mss_type"       value="$(mss_type)"/>
+  <param name="mss_streamtype" value="$(mss_streamtype)"/>
+  <param name="mss_location"   value="$(mss_location)"/>
+  <param name="mss_contentId"  value="$(mss_contentId)"/>
+  <param name="mss_starttime"  value="$(mss_starttime)"/>
+  <param name="mss_endtime"    value="$(mss_endtime)"/>
+  <param name="mss_username"   value="$(mss_username)"/>
+  <param name="mss_password"   value="$(mss_password)"/>
+  <param name="mss_agenttype"  value="$(mss_agenttype)"/>
+  <param name="mss_nvrcode"    value="$(mss_nvrcode)"/>
+  <param name="vcodec"         value="copy"/>
+  <param name="an" />
+  <param name="f"              value="flv"/>
+  <param name="dst"            value="${dst}"/>
+</params>

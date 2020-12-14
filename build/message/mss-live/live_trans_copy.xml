@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="33000000000105030103000000000914" command="start">
+    <report interval="0" url="http://114.115.137.181:18081/mss/v1/allmedia/vodCallback" />
+    <workers>
+      <worker id="0" type="2" master="1">
+        <params>
+          <param name="mss_addr"       value="http://192.169.182.10:10000/mss/v1/api/media/live"/>
+          <param name="mss_cameraid"   value="33000000000105030103000000000914"/>
+          <param name="mss_type"       value="live"/>
+          <param name="mss_streamtype" value="1"/>
+          <param name="mss_username"   value="heshijie"/>
+          <param name="mss_password"   value="heshijie"/>
+          <param name="vcodec"         value="copy"/>
+          <!--param name="acodec" value="aac"/-->
+          <param name="an" />
+          <param name="f"              value="flv"/>
+          <param name="dst"            value="rtmp://127.0.0.1:1935/live/$(taskid)"/>
+        </params>
+      </worker>
+    </workers>
+  </task>
+</req>

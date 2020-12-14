@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+    <publish>
+	    <stream name="channle001" url="http://192.168.1.0:8080/report" />
+    </publish>
+</req>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<zk_info version="1.0">
+    <service inner_addr="192.168.1.1" public_addr="115.28.143.169" />
+	<sche   port="8080" sche_uri="/sche/" />
+    <trans  port="8081" live_uri="/live/" vod_uri="/vod/" />
+    <stream rtmp_port="1935" rtsp_port="1554" hls_port="8080" />
+</zk_info>

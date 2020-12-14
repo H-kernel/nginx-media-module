@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="33000000000105010103000000000290" command="start">
+    <report interval="0" url="http://114.115.137.181:18081/mss/v1/allmedia/vodCallback" />
+    <workers>
+      <worker id="0" type="2" master="1">
+        <arguments>
+          <argument name="mss_addr"       value="http://112.13.167.212:10000/mss/v1/api/media/live"/>
+          <argument name="mss_cameraid"   value="33000000000105010103000000000290"/>
+          <argument name="mss_type"       value="live"/>
+          <argument name="mss_streamtype" value="1"/>
+          <argument name="mss_username"   value="zjAdmin"/>
+          <argument name="mss_password"   value="Huawei@2018"/>
+          <argument name="dst"            value="rtmp://127.0.0.1:1935/live/33000000000105010103000000000290"/>
+        </arguments>
+        <params include="$(params_default)" />
+      </worker>
+    </workers>
+  </task>
+</req>

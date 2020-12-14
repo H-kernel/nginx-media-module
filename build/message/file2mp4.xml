@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<req version="1.0">
+	<task taskid="0123456789" command="start"> <!-- command:start,stop,update -->
+	    <report interval="0" url="http://112.4.10.132:8000/Homegw/vodCallback" />
+		<workers>
+			<worker id="0" type="0" master="1">
+				<params>
+				    <param name="src"               value="$(video_dir)/xxxx.avi"  />
+					<param name="vcodec"            value="libx264" />
+					<param name="acodec"            value="aac"      />
+                    <param name="s"                 value="1024x720"      />
+			        <param name="b"                 value="1024k"     />
+                    <param name="dst"               value="$(video_dir)/xxxx.mp4"  />
+			    </params>
+			</worker>		
+		</workers>
+    </task>
+</req>
+

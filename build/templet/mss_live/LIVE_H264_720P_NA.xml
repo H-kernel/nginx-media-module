@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<params>
+  <param name="mss_addr"       value="$(mss_addr)"/>
+  <param name="mss_cameraid"   value="$(mss_cameraid)"/>
+  <param name="mss_type"       value="$(mss_type)"/>
+  <param name="mss_streamtype" value="$(mss_streamtype)"/>
+  <param name="mss_username"   value="$(mss_username)"/>
+  <param name="mss_password"   value="$(mss_password)"/>
+  <param name="mss_agenttype"  value="$(mss_agenttype)"/>
+  <param name="mss_threads"    value="1"/>
+  <param name="vcodec"         value="libx264"/>
+  <param name="profile:v"      value="main"/> 
+  <param name="preset:v"       value="fast"/> <!-- slow fast ultrafast -->
+  <param name="level"          value="3.1"/>
+  <param name="keyint_min"     value="60"/>
+  <param name="g"              value="60"/>
+  <param name="sc_threshold"   value="0"/>
+  <param name="s"              value="1280x720"/>
+  <param name="r"              value="25"/>  
+  <param name="b:v"            value="1000k" />  
+  <param name="maxrate"        value="1000k"/> 
+  <param name="minrate"        value="1000k"/>
+  <param name="nal-hrd"        value="cbr"/> 
+  <param name="bf"             value="0"/> 
+  <param name="b_strategy"     value="0"/>
+  <param name="an" />
+  <param name="f"              value="flv"/>
+  <param name="dst"            value="${dst}"/>
+</params>

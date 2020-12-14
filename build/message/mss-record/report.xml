@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="1.0">
+    <task taskid="0123456789" status="start"> <!-- status:start,running,stop -->
+        <result errorcode="0" describe="success" />
+		<workers>
+			<worker id="1" type="2" master="0" status="running" />
+			<worker id="1" type="2" master="0" status="running" />
+		</workers>
+    </task>
+</report>

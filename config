@@ -1,0 +1,551 @@
+ngx_addon_name="ngx_media_module"
+echo "#define NGINX_VOD_VERSION \""allmedia_vod 1.0.0"\"" > $NGX_OBJS/ngx_vod_version.h
+cat << END >> $NGX_AUTO_CONFIG_H
+
+#ifndef NGX_HAVE_ZLIB
+#define NGX_HAVE_ZLIB  1
+#endif
+
+END
+
+cat << END >> $NGX_AUTO_CONFIG_H
+
+#ifndef NGX_HAVE_OPENSSL_EVP
+#define NGX_HAVE_OPENSSL_EVP  1
+#endif
+
+END
+
+cat << END >> $NGX_AUTO_CONFIG_H
+
+#ifndef NGX_HAVE_ICONV
+#define NGX_HAVE_ICONV  1
+#endif
+
+END
+
+cat << END >> $NGX_AUTO_CONFIG_H
+
+#ifndef NGX_HAVE_CLOCK_GETTIME
+#define NGX_HAVE_CLOCK_GETTIME  1
+#endif
+
+END
+
+
+cat << END >> $NGX_AUTO_CONFIG_H
+
+#ifndef NGX_HAVE_LIBXML2
+#define NGX_HAVE_LIBXML2  1
+#endif
+
+END
+
+cat << END >> $NGX_AUTO_CONFIG_H
+
+#ifndef NGX_HAVE_LIB_AV_CODEC
+#define NGX_HAVE_LIB_AV_CODEC  1
+#endif
+
+END
+
+cat << END >> $NGX_AUTO_CONFIG_H
+
+#ifndef NGX_HAVE_LIB_SW_SCALE
+#define NGX_HAVE_LIB_SW_SCALE  1
+#endif
+
+END
+
+
+CORE_MODULES="$CORE_MODULES
+                "
+
+
+ALLMEDIA_HTTP_MODULES="   ngx_media_task_http_module                                   \
+                          ngx_media_snap_module                                        \
+                          ngx_media_probe_module                                       \
+                          ngx_schd_http_module                                         \
+                          ngx_media_upload_module                                      \
+                          ngx_media_upload_progress_module                             \
+                          ngx_media_filesystem_module                                  \
+                          ngx_rtmp_stat_module                                         \
+                          ngx_rtmp_control_module                                      \
+                          ngx_http_flv_live_module                                     \
+                          ngx_rtmpt_proxy_module                                       \
+                          ngx_rtmpt_proxy_stat_module                                  \
+                          ngx_media_live_module                                        \
+                          ngx_http_zmq_module                                          \
+                          ngx_http_ts_module                                           \
+                      "
+
+ALLMEDIA_HTTP_FILTER_MODULES="
+                          ngx_http_vod_module                                          \
+                          "
+
+ALLMEDIA_CORE_MODULES="   ngx_license_module                                           \
+                          ngx_schd_module                                              \
+                          ngx_schd_core_module                                         \
+                          ngx_schd_zk_module                                           \
+                          ngx_client_module                                            \
+                          ngx_http_client_module                                       \
+                          ngx_rtmp_module                                              \
+                          ngx_rtmp_core_module                                         \
+                          ngx_rtmp_cmd_module                                          \
+                          ngx_rtmp_codec_module                                        \
+                          ngx_rtmp_access_module                                       \
+                          ngx_rtmp_record_module                                       \
+                          ngx_rtmp_gop_cache_module                                    \
+                          ngx_rtmp_live_module                                         \
+                          ngx_rtmp_flv_live_index_module                               \
+                          ngx_rtmp_play_module                                         \
+                          ngx_rtmp_flv_module                                          \
+                          ngx_rtmp_mp4_module                                          \
+                          ngx_rtmp_netcall_module                                      \
+                          ngx_rtmp_relay_module                                        \
+                          ngx_rtmp_exec_module                                         \
+                          ngx_rtmp_auto_push_module                                    \
+                          ngx_rtmp_auto_push_index_module                              \
+                          ngx_rtmp_notify_module                                       \
+                          ngx_rtmp_log_module                                          \
+                          ngx_rtmp_limit_module                                        \
+                          ngx_rtmp_hls_module                                          \
+                          ngx_rtmp_dash_module                                         \
+                          ngx_task_module                                              \
+                          ngx_media_task_module                                        \
+                          ngx_rtsp_module                                              \
+                          ngx_rtsp_core_module                                         \
+                          ngx_rtsp_vod_module
+                        "
+
+ALLMEDIA_ADDON_INCS="$ngx_addon_dir                                                    \
+                     $ngx_addon_dir/ngx_media_task/                                    \
+                     $ngx_addon_dir/ngx_media_other/                                   \
+                     $ngx_addon_dir/ngx_media_rtmp/                                    \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/                              \
+                     $ngx_addon_dir/ngx_media_rtsp/                                    \
+                     $ngx_addon_dir/ngx_media_vod/                                     \
+                     $ngx_addon_dir/ngx_media_common/                                  \
+                     $ngx_addon_dir/ngx_media_sch/                                     \
+                     $ngx_addon_dir/ngx_media_zmq/                                     \
+                     $ngx_addon_dir/libMediakenerl/include/                            \
+                     $ngx_addon_dir/build/extend/include/                              \
+                     $ngx_addon_dir/build/extend/include/libxml2/                      \
+                     $ngx_addon_dir/build/extend/include/apr-1/                        \
+                    "
+
+ALLMEDIA_ADDON_DEPS="$ngx_addon_dir/ngx_media_common/ngx_media_include.h               \
+                     $ngx_addon_dir/ngx_media_common/ngx_media_common.h                \
+                     $ngx_addon_dir/ngx_media_common/ngx_client.h                      \
+                     $ngx_addon_dir/ngx_media_common/ngx_http_client.h                 \
+                     $ngx_addon_dir/ngx_media_common/ngx_shmap.h                       \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_task_core.h               \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker.h                  \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker_mediakernel.h      \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker_transfer.h         \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker_mss.h              \
+                     $ngx_addon_dir/ngx_media_sch/ngx_schd.h                           \
+                     $ngx_addon_dir/ngx_media_sch/ngx_schd_core_module.h               \
+                     $ngx_addon_dir/ngx_media_sch/ngx_media_sys_stat.h                 \
+                     $ngx_addon_dir/ngx_media_other/ngx_media_license_module.h         \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_amf.h                      \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_bandwidth.h                \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_cmd_module.h               \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_codec_module.h             \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_eval.h                     \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp.h                          \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_version.h                  \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_live_module.h              \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_http_flv_live_module.h          \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_netcall_module.h           \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_play_module.h              \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_record_module.h            \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_gop_cache_module.h         \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_relay_module.h             \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_streams.h                  \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_bitop.h                    \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_proxy_protocol.h           \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_variables.h                \
+                     $ngx_addon_dir/ngx_media_rtmp/hls/ngx_rtmp_mpegts.h               \
+                     $ngx_addon_dir/ngx_media_rtmp/hls/ngx_rtmp_mpegts_crc.h           \
+                     $ngx_addon_dir/ngx_media_rtmp/dash/ngx_rtmp_mp4.h                 \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_module.h      \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_transport.h   \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_session.h     \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_version.h     \
+                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp.h                          \
+                     $ngx_addon_dir/ngx_media_vod/ngx_async_open_file_cache.h          \
+                     $ngx_addon_dir/ngx_media_vod/ngx_buffer_cache.h                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_buffer_cache_internal.h          \
+                     $ngx_addon_dir/ngx_media_vod/ngx_child_http_request.h             \
+                     $ngx_addon_dir/ngx_media_vod/ngx_file_reader.h                    \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_conf.h                  \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_dash.h                  \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_dash_commands.h         \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_dash_conf.h             \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hds.h                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hds_commands.h          \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hds_conf.h              \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hls.h                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hls_commands.h          \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hls_conf.h              \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_module.h                \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_mss.h                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_mss_commands.h          \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_mss_conf.h              \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_request_parse.h         \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_status.h                \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_submodule.h             \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_utils.h                 \
+                     $ngx_addon_dir/ngx_media_vod/ngx_perf_counters.h                  \
+                     $ngx_addon_dir/ngx_media_vod/ngx_perf_counters_x.h                \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_thumb.h                 \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_thumb_commands.h        \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_thumb_conf.h            \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_volume_map.h            \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_volume_map_commands.h   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_volume_map_conf.h       \
+                     $ngx_addon_dir/ngx_media_vod/vod/aes_defs.h                       \
+                     $ngx_addon_dir/ngx_media_vod/vod/avc_defs.h                       \
+                     $ngx_addon_dir/ngx_media_vod/vod/avc_parser.h                     \
+                     $ngx_addon_dir/ngx_media_vod/vod/avc_hevc_parser.h                \
+                     $ngx_addon_dir/ngx_media_vod/vod/bit_read_stream.h                \
+                     $ngx_addon_dir/ngx_media_vod/vod/buffer_pool.h                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/codec_config.h                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/common.h                         \
+                     $ngx_addon_dir/ngx_media_vod/vod/dash/dash_packager.h             \
+                     $ngx_addon_dir/ngx_media_vod/vod/dash/edash_packager.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/dynamic_buffer.h                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/audio_decoder.h          \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/audio_encoder.h          \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/volume_map.h             \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/audio_filter.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/concat_clip.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/dynamic_clip.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/filter.h                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/gain_filter.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/mix_filter.h             \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/rate_filter.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/thumb/thumb_grabber.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_amf0_encoder.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_amf0_fields_x.h          \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_encryption.h             \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_fragment.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_manifest.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/hevc_parser.h                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/adts_encoder_filter.h        \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/aes_cbc_encrypt.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/bit_fields.h                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/buffer_filter.h              \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/eac3_encrypt_filter.h        \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/frame_encrypt_filter.h       \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/frame_joiner_filter.h        \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/hls_encryption.h             \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/hls_muxer.h                  \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/id3_encoder_filter.h         \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/m3u8_builder.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/media_filter.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/mp4_to_annexb_filter.h       \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/mpegts_encoder_filter.h      \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/sample_aes_avc_filter.h      \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/frames_source.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/frames_source_cache.h      \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/frames_source_memory.h     \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/read_cache.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/silence_generator.h        \
+                     $ngx_addon_dir/ngx_media_vod/vod/json_parser.h                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/language_code.h                  \
+                     $ngx_addon_dir/ngx_media_vod/vod/languages_hash_params.h          \
+                     $ngx_addon_dir/ngx_media_vod/vod/languages_x.h                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/manifest_utils.h                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/media_clip.h                     \
+                     $ngx_addon_dir/ngx_media_vod/vod/media_format.h                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/media_set.h                      \
+                     $ngx_addon_dir/ngx_media_vod/vod/media_set_parser.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/ebml.h                       \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/mkv_builder.h                \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/mkv_defs.h                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/mkv_format.h                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_aes_ctr.h                \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cbcs_encrypt.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cenc_decrypt.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cenc_encrypt.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cenc_passthrough.h       \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_clipper.h                \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_defs.h                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_format.h                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_fragment.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_init_segment.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_muxer.h                  \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_parser.h                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_parser_base.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_write_stream.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mss/mss_packager.h               \
+                     $ngx_addon_dir/ngx_media_vod/vod/mss/mss_playready.h              \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/cap_format.h            \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/dfxp_format.h           \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/subtitle_format.h       \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/ttml_builder.h          \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/webvtt_builder.h        \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/webvtt_format.h         \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/webvtt_format_template.h\
+                     $ngx_addon_dir/ngx_media_vod/vod/parse_utils.h                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/read_stream.h                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/segmenter.h                      \
+                     $ngx_addon_dir/ngx_media_vod/vod/udrm.h                           \
+                     $ngx_addon_dir/ngx_media_vod/vod/write_buffer.h                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/write_buffer_queue.h             \
+                     $ngx_addon_dir/ngx_media_vod/vod/write_stream.h                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_thumb_commands.h        \
+                     $ngx_addon_dir/ngx_media_zmq/ngx_zmq_conn_pool.h                  \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_stream.h                       \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_hls.h                          \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_dash.h                         \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_avc.h                          \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_aac.h                          \
+                    "
+
+
+ALLMEDIA_HTTP_SRCS=" $ngx_addon_dir/ngx_media_common/ngx_media_common.c                \
+                     $ngx_addon_dir/ngx_media_common/ngx_shmap.c                       \
+                     $ngx_addon_dir/ngx_media_common/ngx_client.c                      \
+                     $ngx_addon_dir/ngx_media_common/ngx_http_client.c                 \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_task_http_module.c        \
+                     $ngx_addon_dir/ngx_media_sch/ngx_schd_http_module.c               \
+                     $ngx_addon_dir/ngx_media_other/ngx_media_snap_module.c            \
+                     $ngx_addon_dir/ngx_media_other/ngx_media_probe_module.c           \
+                     $ngx_addon_dir/ngx_media_other/ngx_media_upload_module.c          \
+                     $ngx_addon_dir/ngx_media_other/ngx_media_upload_progress_module.c \
+                     $ngx_addon_dir/ngx_media_other/ngx_media_filesystem_module.c      \
+                     $ngx_addon_dir/ngx_media_other/ngx_media_license_module.c         \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_stat_module.c              \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_control_module.c           \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_http_flv_live_module.c          \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_http_live_module.c              \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_module.c      \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_session.c     \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_transport.c   \
+                     $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_stat.c        \
+                     $ngx_addon_dir/ngx_media_zmq/ngx_zmq_conn_pool.c                  \
+                     $ngx_addon_dir/ngx_media_zmq/ngx_http_zmq_module.c                \
+                     $ngx_addon_dir/ngx_media_ts/ngx_http_ts_module.c                  \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_stream.c                       \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_hls.c                          \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_dash.c                         \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_dash_mp4.c                     \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_avc.c                          \
+                     $ngx_addon_dir/ngx_media_ts/ngx_ts_aac.c                          \
+                    "
+
+ALLMEDIA_HTTP_FILTER_SRCS="
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_thumb.c                 \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_volume_map.c            \
+                     $ngx_addon_dir/ngx_media_vod/ngx_async_open_file_cache.c          \
+                     $ngx_addon_dir/ngx_media_vod/ngx_buffer_cache.c                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_child_http_request.c             \
+                     $ngx_addon_dir/ngx_media_vod/ngx_file_reader.c                    \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_conf.c                  \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_dash.c                  \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hds.c                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_hls.c                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_module.c                \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_mss.c                   \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_request_parse.c         \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_status.c                \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_submodule.c             \
+                     $ngx_addon_dir/ngx_media_vod/ngx_http_vod_utils.c                 \
+                     $ngx_addon_dir/ngx_media_vod/ngx_perf_counters.c                  \
+                     $ngx_addon_dir/ngx_media_vod/vod/avc_parser.c                     \
+                     $ngx_addon_dir/ngx_media_vod/vod/avc_hevc_parser.c                \
+                     $ngx_addon_dir/ngx_media_vod/vod/buffer_pool.c                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/codec_config.c                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/common.c                         \
+                     $ngx_addon_dir/ngx_media_vod/vod/dash/dash_packager.c             \
+                     $ngx_addon_dir/ngx_media_vod/vod/dash/edash_packager.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/dynamic_buffer.c                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/audio_decoder.c          \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/audio_encoder.c          \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/volume_map.c             \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/audio_filter.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/concat_clip.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/dynamic_clip.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/filter.c                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/gain_filter.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/mix_filter.c             \
+                     $ngx_addon_dir/ngx_media_vod/vod/filters/rate_filter.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/thumb/thumb_grabber.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_amf0_encoder.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_fragment.c               \
+                     $ngx_addon_dir/ngx_media_vod/vod/hds/hds_manifest.c               \
+                     $ngx_addon_dir/ngx_media_vod/vod/hevc_parser.c                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/adts_encoder_filter.c        \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/aes_cbc_encrypt.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/buffer_filter.c              \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/eac3_encrypt_filter.c        \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/frame_encrypt_filter.c       \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/frame_joiner_filter.c        \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/hls_muxer.c                  \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/id3_encoder_filter.c         \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/m3u8_builder.c               \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/mp4_to_annexb_filter.c       \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/mpegts_encoder_filter.c      \
+                     $ngx_addon_dir/ngx_media_vod/vod/hls/sample_aes_avc_filter.c      \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/frames_source_cache.c      \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/frames_source_memory.c     \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/read_cache.c               \
+                     $ngx_addon_dir/ngx_media_vod/vod/input/silence_generator.c        \
+                     $ngx_addon_dir/ngx_media_vod/vod/json_parser.c                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/language_code.c                  \
+                     $ngx_addon_dir/ngx_media_vod/vod/manifest_utils.c                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/media_format.c                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/media_set_parser.c               \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/ebml.c                       \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/mkv_builder.c                \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/mkv_defs.c                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/mkv/mkv_format.c                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_aes_ctr.c                \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cbcs_encrypt.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cenc_decrypt.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cenc_encrypt.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_cenc_passthrough.c       \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_clipper.c                \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_format.c                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_fragment.c               \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_init_segment.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_muxer.c                  \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_parser.c                 \
+                     $ngx_addon_dir/ngx_media_vod/vod/mp4/mp4_parser_base.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/mss/mss_packager.c               \
+                     $ngx_addon_dir/ngx_media_vod/vod/mss/mss_playready.c              \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/cap_format.c            \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/dfxp_format.c           \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/subtitle_format.c       \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/ttml_builder.c          \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/webvtt_builder.c        \
+                     $ngx_addon_dir/ngx_media_vod/vod/subtitle/webvtt_format.c         \
+                     $ngx_addon_dir/ngx_media_vod/vod/parse_utils.c                    \
+                     $ngx_addon_dir/ngx_media_vod/vod/segmenter.c                      \
+                     $ngx_addon_dir/ngx_media_vod/vod/udrm.c                           \
+                     $ngx_addon_dir/ngx_media_vod/vod/write_buffer.c                   \
+                     $ngx_addon_dir/ngx_media_vod/vod/write_buffer_queue.c             \
+                   "
+ALLMEDIA_CORE_SRCS=" $ngx_addon_dir/ngx_media_sch/ngx_schd.c                           \
+                     $ngx_addon_dir/ngx_media_sch/ngx_schd_core_module.c               \
+                     $ngx_addon_dir/ngx_media_sch/ngx_schd_zk_module.c                 \
+                     $ngx_addon_dir/ngx_media_sch/ngx_media_sys_stat.c                 \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp.c                          \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_init.c                     \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_handshake.c                \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_handler.c                  \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_amf.c                      \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_send.c                     \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_shared.c                   \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_eval.c                     \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_receive.c                  \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_core_module.c              \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_cmd_module.c               \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_codec_module.c             \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_access_module.c            \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_record_module.c            \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_gop_cache_module.c         \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_live_module.c              \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_flv_live_index_module.c    \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_play_module.c              \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_flv_module.c               \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_mp4_module.c               \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_netcall_module.c           \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_relay_module.c             \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_bandwidth.c                \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_exec_module.c              \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_auto_push_module.c         \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_notify_module.c            \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_log_module.c               \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_limit_module.c             \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_bitop.c                    \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_proxy_protocol.c           \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_variables.c                \
+                     $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_parse.c                    \
+                     $ngx_addon_dir/ngx_media_rtmp/hls/ngx_rtmp_hls_module.c           \
+                     $ngx_addon_dir/ngx_media_rtmp/dash/ngx_rtmp_dash_module.c         \
+                     $ngx_addon_dir/ngx_media_rtmp/hls/ngx_rtmp_mpegts.c               \
+                     $ngx_addon_dir/ngx_media_rtmp/hls/ngx_rtmp_mpegts_crc.c           \
+                     $ngx_addon_dir/ngx_media_rtmp/dash/ngx_rtmp_mp4.c                 \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_task_core.c               \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_task_module.c             \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker.c                  \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker_mediakernel.c      \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker_transfer.c         \
+                     $ngx_addon_dir/ngx_media_task/ngx_media_worker_mss.c              \
+                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp.c                          \
+                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp_core_module.c              \
+                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp_vod_module.c               \
+                "
+
+ALLMEDIA_LIBS="
+                     -L$ngx_addon_dir/build/extend/lib/ -Wl,-Bstatic                   \
+                     -lxml2 -liconv -lbz2 -lzookeeper_mt  -llzma                       \
+                     -lpcre -lpcrecpp -lpcreposix  -lssl  -lcrypto                     \
+                     -lzmq -lz -lmxml -lcurl                                           \
+                     -L$ngx_addon_dir/libMediakenerl/lib/ -Wl,-Bstatic -lcommon        \
+                     -Wl,-Bdynamic -lMediaKenerl -lasrtspsvr                           \
+                     -ldl -lstdc++ -pthread -lrt -lm                                   \
+                    "
+
+if [ -f auto/module ] ; then
+    ngx_module_incs="$ngx_module_incs $ALLMEDIA_ADDON_INCS"
+    ngx_module_deps="$ngx_module_deps $ALLMEDIA_ADDON_DEPS"
+    ngx_module_libs="$ngx_module_libs $ALLMEDIA_LIBS"
+
+    if [ $ngx_module_link = DYNAMIC ] ; then
+        ngx_module_name="$ALLMEDIA_CORE_MODULES $ALLMEDIA_HTTP_MODULES $ALLMEDIA_HTTP_FILTER_MODULES"
+        ngx_module_srcs="$ALLMEDIA_CORE_SRCS $ALLMEDIA_HTTP_SRCS $ALLMEDIA_HTTP_FILTER_SRCS"
+
+        . auto/module
+
+    else
+        ngx_module_type=HTTP
+        ngx_module_name=$ALLMEDIA_CORE_MODULES
+        ngx_module_srcs=$ALLMEDIA_CORE_SRCS
+
+        . auto/module
+
+
+        ngx_module_type=HTTP
+        ngx_module_name=$ALLMEDIA_HTTP_MODULES
+        ngx_module_srcs=$ALLMEDIA_HTTP_SRCS
+
+        . auto/module
+
+
+        ngx_module_type=HTTP_AUX_FILTER
+        ngx_module_name=$ALLMEDIA_HTTP_FILTER_MODULES
+        ngx_module_srcs=$ALLMEDIA_HTTP_FILTER_SRCS
+
+        . auto/module
+    fi
+
+else
+    CORE_MODULES="$CORE_MODULES $ALLMEDIA_CORE_MODULES"
+    HTTP_MODULES="$HTTP_MODULES $ALLMEDIA_HTTP_MODULES"
+    HTTP_AUX_FILTER_MODULES="$HTTP_AUX_FILTER_MODULES $ALLMEDIA_HTTP_FILTER_MODULES"
+
+    NGX_ADDON_DEPS="$NGX_ADDON_DEPS $ALLMEDIA_ADDON_DEPS"
+    NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ALLMEDIA_CORE_SRCS $ALLMEDIA_HTTP_SRCS $ALLMEDIA_HTTP_FILTER_SRCS"
+
+    CORE_LIBS     ="$CORE_LIBS $ALLMEDIA_LIBS"
+    CFLAGS        ="$CFLAGS -I$ngx_addon_dir                               \
+                            -I$ngx_addon_dir/ngx_media_common              \
+                            -I$ngx_addon_dir/ngx_media_other               \
+                            -I$ngx_addon_dir/ngx_media_rtmp                \
+                            -I$ngx_addon_dir/ngx_media_rtmp_proxy          \
+                            -I$ngx_addon_dir/ngx_media_sch                 \
+                            -I$ngx_addon_dir/ngx_media_task                \
+                            -I$ngx_addon_dir/ngx_media_vod                 \
+                            -I$ngx_addon_dir/build/extend/include/         \
+                            -I$ngx_addon_dir/build/extend/include/libxml2/ \
+                            -I$ngx_addon_dir/build/extend/include/apr-1/   \
+                            -fopenmp                                       \
+                   "
+fi
+
+USE_OPENSSL=YES

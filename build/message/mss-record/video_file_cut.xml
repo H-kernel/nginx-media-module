@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<req version="1.0">
+  <task taskid="vod_cut_1525866110183_835" command="start">
+    <report interval="0" url="http://114.215.24.48:10000/mss/v1/allmedia/vodCallback" />
+    <workers>
+      <worker id="0" type="2" master="1">
+        <arguments>
+          <argument name="vod_file"       value="$(vpath)/123456789.mp4"/>
+          <argument name="duration"       value="50"/>
+          <argument name="destation"      value="$(vpath)/123456789_%d.mp4"/>
+        </arguments>
+        <params include="${RECORDCUT}" />
+      </worker>
+    </workers>
+  </task>
+</req>

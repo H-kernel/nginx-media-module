@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<params>
+  <param name="rtsp_transport" value="tcp"/>
+  <param name="src"            value="$(src)"/>
+  <param name="t"              value="$(mss_duration)"/>
+  <param name="vcodec"         value="libx264"/>
+  <param name="copy_if_h264"   />
+  <param name="an"             />
+  <param name="f"              value="mp4"/>
+  <param name="dst"            value="${dst}"/>
+</params>

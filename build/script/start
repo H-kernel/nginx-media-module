@@ -1,0 +1,11 @@
+#!/bin/sh
+
+curpath=`pwd`
+runpath=$(dirname $(pwd))
+export LD_LIBRARY_PATH=../lib/
+if [ -f "$curpath/nginx" ];then
+    ./nginx -p $runpath -c $runpath/conf/nginx.conf 
+fi
+if [ -f "$curpath/allmedia" ];then
+    ./allmedia -p $runpath -c $runpath/conf/allmedia.conf 
+fi
