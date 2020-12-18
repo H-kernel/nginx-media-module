@@ -92,8 +92,15 @@ static u_char ngx_rtmp_mpegts_header[] = {
 
 static u_char ngx_rtmp_mpegts_header_h264[] = {
 	//H.264 Video, PID 0x100
-    0x1b,                                               // stream_type(8)
-    0xe1, 0x00,                                         // reserved(3) + elementary_PID(13)
+    0x1b,                                              // stream_type(8)
+    0xe1, 0x00,                                        // reserved(3) + elementary_PID(13)
+    0xf0, 0x00                                         // reserved(4) + ES_info_length(12)
+};
+
+static u_char ngx_rtmp_mpegts_header_h265[] = {
+	//HEVC Video, PID 0x100
+    0x24,                                              // stream_type(8)
+    0xe1, 0x00,                                        // reserved(3) + elementary_PID(13)
     0xf0, 0x00                                         // reserved(4) + ES_info_length(12)
 };
 
@@ -212,13 +219,21 @@ ngx_rtmp_mpegts_write_header(ngx_rtmp_mpegts_file_t *file, ngx_rtmp_codec_ctx_t 
     ngx_rtmp_mpegts_header[191] = (ngx_rtmp_mpegts_header[191] & 0xf0) + (u_char)mpegts_cc;
 
     //ngx_rtmp_mpegts_header 
+    if (codec_ctx->video_codec_id){
+        if (NGX_RTMP_VIDEOTAG_CODECID_AVC == codec_ctx->video_codec_id)
+        {
+            //Put h264 PID in the PMT
+            ngx_memcpy(ngx_rtmp_mpegts_header+NGX_RTMP_MPEGTS_PMT_LOOP_OFFSET+next_pid_offset, ngx_rtmp_mpegts_header_h264, NGX_RTMP_MPEGTS_PID_SIZE);
 
-    if (codec_ctx->video_codec_id)
-    {
-        //Put h264 PID in the PMT
-        ngx_memcpy(ngx_rtmp_mpegts_header+NGX_RTMP_MPEGTS_PMT_LOOP_OFFSET+next_pid_offset, ngx_rtmp_mpegts_header_h264, NGX_RTMP_MPEGTS_PID_SIZE);
+            next_pid_offset += NGX_RTMP_MPEGTS_PID_SIZE;
+        }
+        else if (NGX_RTMP_VIDEOTAG_CODECID_HEVC == codec_ctx->video_codec_id)
+        {
+            //Put h265 PID in the PMT
+            ngx_memcpy(ngx_rtmp_mpegts_header+NGX_RTMP_MPEGTS_PMT_LOOP_OFFSET+next_pid_offset, ngx_rtmp_mpegts_header_h265, NGX_RTMP_MPEGTS_PID_SIZE);
 
-        next_pid_offset += NGX_RTMP_MPEGTS_PID_SIZE;
+            next_pid_offset += NGX_RTMP_MPEGTS_PID_SIZE;
+        }
     }
 
     if (codec_ctx->audio_codec_id){

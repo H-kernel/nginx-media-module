@@ -286,7 +286,7 @@ ngx_rtmp_dash_write_playlist(ngx_rtmp_session_t *s)
     ngx_rtmp_dash_app_conf_t  *dacf;
     /* begin add by H.kernel for playlist report */
     ngx_rtmp_playlist_t        v;
-	/* end add by H.kernel for playlist report */
+    /* end add by H.kernel for playlist report */
 
     static u_char              buffer[NGX_RTMP_DASH_BUFSIZE];
     static u_char              avaliable_time[NGX_RTMP_DASH_GMT_LENGTH];
@@ -416,16 +416,10 @@ ngx_rtmp_dash_write_playlist(ngx_rtmp_session_t *s)
     "</MPD>\n"
 
 
-/**
- * Availability time must be equal stream start time
- * Cos segments time counting from it
- */
-    ngx_libc_gmtime(ctx->start_time.sec, &tm);
-    *ngx_sprintf(avaliable_time, "%4d-%02d-%02dT%02d:%02d:%02dZ",
-             tm.tm_year + 1900, tm.tm_mon + 1,
-             tm.tm_mday, tm.tm_hour,
-             tm.tm_min, tm.tm_sec
-             ) = 0;
+    ngx_sprintf(avaliable_time, "%4d-%02d-%02dT%02d:%02d:%02dZ%Z",
+                tm.tm_year + 1900, tm.tm_mon + 1,
+                tm.tm_mday, tm.tm_hour,
+                tm.tm_min, tm.tm_sec);
 
     /* Stream publish time */
     *ngx_sprintf(publish_time, "%s", avaliable_time) = 0;
@@ -1744,7 +1738,7 @@ ngx_rtmp_dash_postconfiguration(ngx_conf_t *cf)
     /* begin add by H.kernel for playlist report */
     next_playlist = ngx_rtmp_playlist;
     ngx_rtmp_playlist = ngx_rtmp_dash_playlist;
-	/* end add by H.kernel for playlist report */
+    /* end add by H.kernel for playlist report */
 
     return NGX_OK;
 }

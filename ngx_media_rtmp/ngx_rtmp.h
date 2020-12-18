@@ -234,6 +234,10 @@ enum {
     NGX_RTMP_PROTOCOL_HTTP
 };
 
+// add by adwpc for hevc support
+#define NGX_RTMP_VIDEOTAG_CODECID_AVC   7
+#define NGX_RTMP_VIDEOTAG_CODECID_HEVC  12
+
 
 #define NGX_RTMP_INTERNAL_SERVER_ERROR  500
 
