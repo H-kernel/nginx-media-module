@@ -316,7 +316,6 @@ ALLMEDIA_HTTP_SRCS=" $ngx_addon_dir/ngx_media_common/ngx_media_common.c         
                      $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_stat_module.c              \
                      $ngx_addon_dir/ngx_media_rtmp/ngx_rtmp_control_module.c           \
                      $ngx_addon_dir/ngx_media_rtmp/ngx_http_flv_live_module.c          \
-                     $ngx_addon_dir/ngx_media_rtmp/ngx_http_live_module.c              \
                      $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_module.c      \
                      $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_session.c     \
                      $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_transport.c   \
@@ -330,6 +329,7 @@ ALLMEDIA_HTTP_SRCS=" $ngx_addon_dir/ngx_media_common/ngx_media_common.c         
                      $ngx_addon_dir/ngx_media_ts/ngx_ts_dash_mp4.c                     \
                      $ngx_addon_dir/ngx_media_ts/ngx_ts_avc.c                          \
                      $ngx_addon_dir/ngx_media_ts/ngx_ts_aac.c                          \
+                     $ngx_addon_dir/ngx_media_live/ngx_http_live_module.c              \
                     "
 
 ALLMEDIA_HTTP_FILTER_SRCS="
