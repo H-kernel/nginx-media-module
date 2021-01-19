@@ -112,10 +112,7 @@ ALLMEDIA_CORE_MODULES="   ngx_license_module                                    
                           ngx_rtmp_hls_module                                          \
                           ngx_rtmp_dash_module                                         \
                           ngx_task_module                                              \
-                          ngx_media_task_module                                        \
-                          ngx_rtsp_module                                              \
-                          ngx_rtsp_core_module                                         \
-                          ngx_rtsp_vod_module
+                          ngx_media_task_module                                        
                         "
 
 ALLMEDIA_ADDON_INCS="$ngx_addon_dir                                                    \
@@ -123,7 +120,6 @@ ALLMEDIA_ADDON_INCS="$ngx_addon_dir                                             
                      $ngx_addon_dir/ngx_media_other/                                   \
                      $ngx_addon_dir/ngx_media_rtmp/                                    \
                      $ngx_addon_dir/ngx_media_rtmp_proxy/                              \
-                     $ngx_addon_dir/ngx_media_rtsp/                                    \
                      $ngx_addon_dir/ngx_media_vod/                                     \
                      $ngx_addon_dir/ngx_media_common/                                  \
                      $ngx_addon_dir/ngx_media_sch/                                     \
@@ -173,7 +169,6 @@ ALLMEDIA_ADDON_DEPS="$ngx_addon_dir/ngx_media_common/ngx_media_include.h        
                      $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_transport.h   \
                      $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_session.h     \
                      $ngx_addon_dir/ngx_media_rtmp_proxy/ngx_rtmpt_proxy_version.h     \
-                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp.h                          \
                      $ngx_addon_dir/ngx_media_vod/ngx_async_open_file_cache.h          \
                      $ngx_addon_dir/ngx_media_vod/ngx_buffer_cache.h                   \
                      $ngx_addon_dir/ngx_media_vod/ngx_buffer_cache_internal.h          \
@@ -476,9 +471,6 @@ ALLMEDIA_CORE_SRCS=" $ngx_addon_dir/ngx_media_sch/ngx_schd.c                    
                      $ngx_addon_dir/ngx_media_task/ngx_media_worker_mediakernel.c      \
                      $ngx_addon_dir/ngx_media_task/ngx_media_worker_transfer.c         \
                      $ngx_addon_dir/ngx_media_task/ngx_media_worker_mss.c              \
-                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp.c                          \
-                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp_core_module.c              \
-                     $ngx_addon_dir/ngx_media_rtsp/ngx_rtsp_vod_module.c               \
                 "
 
 ALLMEDIA_LIBS="
@@ -487,7 +479,7 @@ ALLMEDIA_LIBS="
                      -lpcre -lpcrecpp -lpcreposix  -lssl  -lcrypto                     \
                      -lzmq -lz -lmxml -lcurl                                           \
                      -L$ngx_addon_dir/libMediakenerl/lib/ -Wl,-Bstatic -lcommon        \
-                     -Wl,-Bdynamic -lMediaKenerl -lasrtspsvr                           \
+                     -Wl,-Bdynamic -lMediaKenerl                                       \
                      -ldl -lstdc++ -pthread -lrt -lm                                   \
                     "
 
