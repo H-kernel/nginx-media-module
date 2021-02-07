@@ -827,7 +827,7 @@ ngx_media_worker_mss_start(ngx_media_worker_ctx_t* ctx)
     worker_ctx->timer.data    = worker_ctx;
     worker_ctx->status        = NGX_MEDIA_WOKER_MSS_STATUS_INIT;
 
-    ngx_add_timer(&worker_ctx->timer,1);/* start mss work after 1 second */
+    ngx_add_timer(&worker_ctx->timer,1000);/* start mss work after 1 second */
 
     ngx_log_error(NGX_LOG_DEBUG, ctx->log, 0,
                           "ngx_media_worker_mss_start worker:[%V] end.",&ctx->wokerid);
