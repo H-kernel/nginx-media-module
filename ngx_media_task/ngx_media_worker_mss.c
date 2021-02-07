@@ -358,7 +358,7 @@ ngx_media_worker_mss_timer(ngx_event_t *ev)
     if(NGX_MEDIA_WOKER_MSS_STATUS_INIT == worker_ctx->status ) {
         worker_ctx->watcher(ngx_media_worker_status_init,NGX_MEDIA_ERROR_CODE_OK,worker_ctx->wk_ctx);
         worker_ctx->status = NGX_MEDIA_WOKER_MSS_STATUS_REQ_URL;
-        ngx_add_timer(&worker_ctx->timer,1);
+        ngx_add_timer(&worker_ctx->timer,1000);
         return;
     }
     else if(NGX_MEDIA_WOKER_MSS_STATUS_REQ_URL == worker_ctx->status ) {
