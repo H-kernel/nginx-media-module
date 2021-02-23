@@ -20,7 +20,7 @@
 
 #define MSS_WORK_ARG_ANALYZEDURATION "-mss_analyzeduration"
 #define MSS_WORK_ARG_THREADS         "-mss_threads"
-
+#define MSS_WORK_ARG_TIMER           "-mss_timer"
 
 
 #define MSS_WORK_MEDIA_TYPE_LIVE     "live"
@@ -61,6 +61,7 @@ typedef struct {
 
     ngx_str_t                       mss_analyzed_duration;
     ngx_str_t                       mss_threads;
+    ngx_uint_t                      mss_timer;
 } ngx_worker_mss_arg_t;
 
 typedef struct {
@@ -217,6 +218,14 @@ ngx_media_worker_mss_args(ngx_worker_mss_ctx_t* mss_ctx,u_char* arg,u_char* valu
             (*index)++;
         }
     }
+    else if(ngx_strncmp(arg,MSS_WORK_ARG_TIMER,size) == 0) {
+        if(set) {
+            ret = ngx_media_worker_arg_value_uint(value,&mss_ctx->mss_arg.mss_timer);
+        }
+        if(NGX_OK == ret) {
+            (*index)++;
+        }
+    }
     else {
         return;
     }
@@ -354,11 +363,18 @@ ngx_media_worker_mss_timer(ngx_event_t *ev)
     if(NULL == worker_ctx->watcher) {
         return;
     }
+    
 
     if(NGX_MEDIA_WOKER_MSS_STATUS_INIT == worker_ctx->status ) {
         worker_ctx->watcher(ngx_media_worker_status_init,NGX_MEDIA_ERROR_CODE_OK,worker_ctx->wk_ctx);
         worker_ctx->status = NGX_MEDIA_WOKER_MSS_STATUS_REQ_URL;
-        ngx_add_timer(&worker_ctx->timer,1000);
+
+        if(0 < worker_ctx->mss_arg.mss_timer) {
+        ngx_add_timer(&worker_ctx->timer,worker_ctx->mss_arg.mss_timer);
+        }
+        else {
+            ngx_add_timer(&worker_ctx->timer,500);/* start mss work after 0.5 second */
+        }
         return;
     }
     else if(NGX_MEDIA_WOKER_MSS_STATUS_REQ_URL == worker_ctx->status ) {
@@ -410,7 +426,12 @@ ngx_media_worker_mss_timer(ngx_event_t *ev)
     if(NGX_MEDIA_WOKER_MSS_STATUS_MK_RUN < worker_ctx->status) {
         return;
     }
-    ngx_add_timer(&worker_ctx->timer,NGX_HTTP_VIDEO_MSS_TIME);
+    if(0 < worker_ctx->mss_arg.mss_timer) {
+        ngx_add_timer(&worker_ctx->timer,worker_ctx->mss_arg.mss_timer);
+    }
+    else {
+        ngx_add_timer(&worker_ctx->timer,NGX_HTTP_VIDEO_MSS_TIME);
+    }
 }
 
 static ngx_uint_t
@@ -826,8 +847,13 @@ ngx_media_worker_mss_start(ngx_media_worker_ctx_t* ctx)
     worker_ctx->timer.log     = ctx->log;
     worker_ctx->timer.data    = worker_ctx;
     worker_ctx->status        = NGX_MEDIA_WOKER_MSS_STATUS_INIT;
-
-    ngx_add_timer(&worker_ctx->timer,1000);/* start mss work after 1 second */
+    
+    if(0 < worker_ctx->mss_arg.mss_timer) {
+        ngx_add_timer(&worker_ctx->timer,worker_ctx->mss_arg.mss_timer);
+    }
+    else {
+        ngx_add_timer(&worker_ctx->timer,500);/* start mss work after 0.5 second */
+    }
 
     ngx_log_error(NGX_LOG_DEBUG, ctx->log, 0,
                           "ngx_media_worker_mss_start worker:[%V] end.",&ctx->wokerid);
