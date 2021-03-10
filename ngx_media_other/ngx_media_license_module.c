@@ -56,7 +56,6 @@ typedef struct {
     ngx_shm_zone_t                *shm_zone;
 } ngx_license_conf_t;
 
-static ngx_license_conf_t *g_license_conf = NULL;
 
 static void     *ngx_license_create_conf(ngx_cycle_t *cycle);
 static char     *ngx_license_init_conf(ngx_cycle_t *cycle, void *conf);
@@ -115,7 +114,6 @@ ngx_license_create_conf(ngx_cycle_t *cycle)
     }
 
     lcf->shm_zone  = NGX_CONF_UNSET_PTR;
-    g_license_conf = lcf;
     return lcf;
 }
 static char*
@@ -256,12 +254,16 @@ ngx_media_license_task_max()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
     ngx_uint_t                     max;
+    
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
 
-    if(NULL == g_license_conf) {
+    if(NULL == conf) {
         return LICENSE_TASK_COUNT_DEFAULT;
-    }
+    }    
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -277,11 +279,14 @@ ngx_media_license_task_inc()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -297,11 +302,14 @@ ngx_media_license_task_dec()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -318,11 +326,14 @@ ngx_media_license_task_current()
     ngx_license_info_t            *license;
     ngx_uint_t                     count;
 
-    if(NULL == g_license_conf) {
-        return 0;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return LICENSE_TASK_COUNT_DEFAULT;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -339,11 +350,14 @@ ngx_media_license_rtmp_channle()
     ngx_license_info_t            *license;
     ngx_uint_t                     max;
 
-    if(NULL == g_license_conf) {
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
         return LICENSE_RTMP_CHANNEL_DEFAULT;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -360,11 +374,14 @@ ngx_media_license_rtmp_inc()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -380,11 +397,14 @@ ngx_media_license_rtmp_dec()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -401,11 +421,14 @@ ngx_media_license_rtmp_current()
     ngx_license_info_t            *license;
     ngx_uint_t                     count;
 
-    if(NULL == g_license_conf) {
-        return 0;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return LICENSE_RTMP_CHANNEL_DEFAULT;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -424,11 +447,14 @@ ngx_media_license_rtsp_channle()
     ngx_license_info_t            *license;
     ngx_uint_t                     max;
 
-    if(NULL == g_license_conf) {
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
         return LICENSE_RTSP_CHANNEL_DEFAULT;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -445,11 +471,14 @@ ngx_media_license_rtsp_inc()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -465,11 +494,14 @@ ngx_media_license_rtsp_dec()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -486,11 +518,14 @@ ngx_media_license_rtsp_current()
     ngx_license_info_t            *license;
     ngx_uint_t                     count;
 
-    if(NULL == g_license_conf) {
-        return 0;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return LICENSE_RTSP_CHANNEL_DEFAULT;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -508,11 +543,14 @@ ngx_media_license_hls_channle()
     ngx_license_info_t            *license;
     ngx_uint_t                     max;
 
-    if(NULL == g_license_conf) {
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
         return LICENSE_HLS_CHANNEL_DEFAULT;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -528,11 +566,14 @@ ngx_media_license_hls_inc()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -548,11 +589,14 @@ ngx_media_license_hls_dec()
     ngx_shm_zone_t                *shm_zone;
     ngx_license_info_t            *license;
 
-    if(NULL == g_license_conf) {
-        return;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return ;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -570,11 +614,14 @@ ngx_media_license_hls_current()
     ngx_license_info_t            *license;
     ngx_uint_t                     count;
 
-    if(NULL == g_license_conf) {
-        return 0;
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
+        return LICENSE_HLS_CHANNEL_DEFAULT;
     }
 
-    shm_zone = g_license_conf->shm_zone;
+    shm_zone = conf->shm_zone;
     shpool   = (ngx_slab_pool_t *) shm_zone->shm.addr;
     license  = shm_zone->data;
     
@@ -587,8 +634,11 @@ ngx_media_license_hls_current()
 ngx_str_t* 
 ngx_media_license_file_path()
 {
-    if(NULL == g_license_conf) {
+    ngx_license_conf_t *conf 
+        = (ngx_license_conf_t *) ngx_get_conf(ngx_cycle->conf_ctx,
+                                             ngx_license_module);
+    if(NULL == conf) {
         return NULL;
     }
-    return &g_license_conf->license_file;
+    return &conf->license_file;
 }
